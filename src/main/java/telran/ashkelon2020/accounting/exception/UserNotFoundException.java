@@ -1,0 +1,18 @@
+package telran.ashkelon2020.accounting.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(code = HttpStatus.NOT_FOUND)
+public class UserNotFoundException extends RuntimeException {
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3371445790400458382L;
+
+	public UserNotFoundException(String login) {
+		super("User with login = " + login + " not found");
+	}
+}
