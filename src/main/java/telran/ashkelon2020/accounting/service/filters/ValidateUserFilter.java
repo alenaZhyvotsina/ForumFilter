@@ -31,10 +31,18 @@ public class ValidateUserFilter implements Filter{
 		HttpServletResponse response = (HttpServletResponse) resp;
 		
 		String path = request.getServletPath();
+		String method = request.getMethod();
 		
-		if(checkPathOnValidateUser(path)) {			
+		if(checkPathAndMethodOnValidateUser(path, method)) {			
 			String loginPath = path.substring(path.lastIndexOf("/") + 1); //path.split("/")[2];
 			if(!request.getUserPrincipal().getName().equalsIgnoreCase(loginPath)) {
+				if(checkPathAndMethodOnValidateModerator(path, method)) {
+					if(securityService.checkAdmin(request.getUserPrincipal().getName(), "Moderator")) {
+						chain.doFilter(request, response);
+						return;
+					}
+				}
+				
 				response.sendError(403);
 				return;
 			}			
@@ -43,8 +51,27 @@ public class ValidateUserFilter implements Filter{
 		
 	}
 
-	private boolean checkPathOnValidateUser(String path) {
-		return !path.equalsIgnoreCase("/account/user/password") && path.matches("/account/user/\\w*");
+	private boolean checkPathAndMethodOnValidateUser(String path, String method) {
+		boolean res = path.matches("/account/user/\\w*");
+		
+		res = res || (path.matches("/forum/post/\\w*") && "POST".equalsIgnoreCase(method));
+		
+		res = res || (path.matches("/forum/post/\\w*") && "DELETE".equalsIgnoreCase(method));
+		
+		res = res || (path.matches("/forum/post/\\w*") && "PUT".equalsIgnoreCase(method));
+		
+		res = res || (path.matches("/forum/post/\\w*/comment/\\w*") 
+					  && "PUT".equalsIgnoreCase(method));
+		
+		return res;
+	}
+	
+	private boolean checkPathAndMethodOnValidateModerator(String path, String method) {
+		boolean res = (path.matches("/forum/post/\\w*") && "PUT".equalsIgnoreCase(method));
+		
+		res = res || (path.matches("/forum/post/\\w*") && "DELETE".equalsIgnoreCase(method));
+		
+		return res;
 	}
 
 }

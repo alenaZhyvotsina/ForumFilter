@@ -60,7 +60,7 @@ public class AccountingController {
 		return userService.changeRoleList(login, role, false);
 	}
 	
-	@PutMapping("/user/password")
+	@PutMapping("/password")
 	public UserDto changePassword(@RequestHeader("X-Password") String newPassword,
 					Principal principal) {
 			

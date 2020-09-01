@@ -45,8 +45,19 @@ public class RoleExistsFilter implements Filter{
 
 	private boolean checkPathAndMethodOnRoles(String path, String method) {
 		boolean res = "/account/login".equalsIgnoreCase(path) ||
-					  (!path.equalsIgnoreCase("/account/user/password")
-					   && path.matches("/account/user/\\w*") && "Put".equalsIgnoreCase(method));
+					  (path.matches("/account/user/\\w*") && "Put".equalsIgnoreCase(method));
+		
+		res = res || (path.matches("/forum/post/\\w*") && "POST".equalsIgnoreCase(method));
+		
+		res = res || (path.matches("/forum/post/\\w*") && "DELETE".equalsIgnoreCase(method));
+		
+		res = res || (path.matches("/forum/post/\\w*") && "PUT".equalsIgnoreCase(method));
+		
+		res = res || (path.matches("/forum/post/\\w*/like") && "PUT".equalsIgnoreCase(method));
+		
+		res = res || (path.matches("/forum/post/\\w*/comment/\\w*") 
+					  && "PUT".equalsIgnoreCase(method));
+		
 		return res;
 	}
 

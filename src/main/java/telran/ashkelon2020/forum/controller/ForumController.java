@@ -65,17 +65,17 @@ public class ForumController {
 		return forumService.findPostsByTags(tags);
 	}
 	
-	@PostMapping("/forum/posts/dates")
+	@PostMapping("/forum/posts/period")
 	public Iterable<PostResponseDto> findPostsByDates(@RequestBody DatePeriodDto datePeriodDto){
 		return forumService.findPostsByDates(datePeriodDto);
 	}
 	
-	@GetMapping("/forum/comments/post/{id}")
+	@GetMapping("/forum/post/{id}/comments")
 	public Iterable<CommentResponceDto> findAllPostComments(@PathVariable String id){
 		return forumService.findAllPostComments(id);
 	}
 		
-	@GetMapping("/forum/comments/post/{id}/author/{author}")
+	@GetMapping("/forum/post/{id}/author/{author}/comments")
 	public Iterable<CommentResponceDto> findAllPostCommentsByAuthor(@PathVariable String id, @PathVariable String author){
 		return forumService.findAllPostCommentsByAuthor(id, author);
 	}

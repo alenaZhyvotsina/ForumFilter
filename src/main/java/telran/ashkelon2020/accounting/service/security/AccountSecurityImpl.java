@@ -73,7 +73,7 @@ public class AccountSecurityImpl implements AccountingSecurity {
 			return true;
 		}
 		else {
-			throw new NotAdminException(login);
+			throw new NotAdminException(login, role);
 		}		
 	}
 

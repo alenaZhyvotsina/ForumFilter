@@ -50,9 +50,20 @@ public class ExpDateFilter implements Filter{
 		boolean res = "/account/login".equalsIgnoreCase(path) &&
 					 "Post".equalsIgnoreCase(method);
 		
-		res = res || (!path.equalsIgnoreCase("/account/user/password") 
-				      && "Put".equalsIgnoreCase(method) 
+		res = res || ("Put".equalsIgnoreCase(method) 
 					  && path.matches("/account/user/\\w*"));
+		
+		res = res || (path.matches("/forum/post/\\w*") && "POST".equalsIgnoreCase(method));
+		
+		res = res || (path.matches("/forum/post/\\w*") && "DELETE".equalsIgnoreCase(method));
+		
+		res = res || (path.matches("/forum/post/\\w*") && "PUT".equalsIgnoreCase(method));
+		
+		res = res || (path.matches("/forum/post/\\w*/like") && "PUT".equalsIgnoreCase(method));
+		
+		res = res || (path.matches("/forum/post/\\w*/comment/\\w*") 
+					  && "PUT".equalsIgnoreCase(method));
+		
 		return res;
 	}
 
