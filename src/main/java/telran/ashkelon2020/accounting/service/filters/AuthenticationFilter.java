@@ -78,17 +78,17 @@ public class AuthenticationFilter implements Filter{
 	}
 	
 	private boolean checkPathAndMethodWithoutAuthantication(String path, String method) {
-		boolean res = (path.matches("/forum/post/\\w*") && "GET".equalsIgnoreCase(method));
+		boolean res = (path.startsWith("/forum/") && "GET".equalsIgnoreCase(method));
 		
-		res = res || (path.matches("/forum/posts/author/\\w*") && "GET".equalsIgnoreCase(method));
+		//res = res || (path.matches("/forum/posts/author/\\w*") && "GET".equalsIgnoreCase(method));
 		
-		res = res || (path.matches("/forum/posts/tags") && "POST".equalsIgnoreCase(method));
+		res = res || (path.matches("/forum/posts/tags|period")/* && "POST".equalsIgnoreCase(method)*/);
 		
-		res = res || (path.matches("/forum/posts/period") && "POST".equalsIgnoreCase(method));
+		//res = res || (path.matches("/forum/posts/period") && "POST".equalsIgnoreCase(method));
 		
-		res = res || (path.matches("/forum/post/\\w*/comments") && "GET".equalsIgnoreCase(method));
+		//res = res || (path.matches("/forum/post/\\w*/comments") && "GET".equalsIgnoreCase(method));
 		
-		res = res || (path.matches("/forum/post/\\w*/author/\\w*/comments") && "GET".equalsIgnoreCase(method));
+		//res = res || (path.matches("/forum/post/\\w*/author/\\w*/comments") && "GET".equalsIgnoreCase(method));
 		
 		return res;
 	}
