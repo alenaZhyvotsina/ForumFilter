@@ -78,7 +78,12 @@ public class AuthenticationFilter implements Filter{
 	}
 	
 	private boolean checkPathAndMethodWithoutAuthantication(String path, String method) {
-		boolean res = (path.startsWith("/forum/") && "GET".equalsIgnoreCase(method));
+		boolean res = false;
+		
+		//res = (path.startsWith("/forum/") && "GET".equalsIgnoreCase(method));
+		
+		//res = res || (path.startsWith("/forum") && "GET".equalsIgnoreCase(method));
+		res = res || "GET".equalsIgnoreCase(method);
 		
 		//res = res || (path.matches("/forum/posts/author/\\w*") && "GET".equalsIgnoreCase(method));
 		
@@ -89,7 +94,7 @@ public class AuthenticationFilter implements Filter{
 		//res = res || (path.matches("/forum/post/\\w*/comments") && "GET".equalsIgnoreCase(method));
 		
 		//res = res || (path.matches("/forum/post/\\w*/author/\\w*/comments") && "GET".equalsIgnoreCase(method));
-		
+				
 		return res;
 	}
 
